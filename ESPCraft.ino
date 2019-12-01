@@ -4,11 +4,13 @@
 
 /********************** ESP CRAFT SETUP **************************/
 #define MODULE_NUMBER "4"
-#define MQTT_PREFIX "nvias/MC"
 /********************* END ESP CRAFT SETUP **********************/
+
+#define MQTT_PREFIX "nvias/MC"
 
 #define SUB_TOPIC MQTT_PREFIX "/M" MODULE_NUMBER "/#"
 #define PUB_TOPIC MQTT_PREFIX "/M" MODULE_NUMBER
+
 #define BTN 14
 
 const char* ssid = "JMENO_WIFI";
