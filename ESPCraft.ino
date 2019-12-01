@@ -2,6 +2,13 @@
 #include <Adafruit_NeoPixel.h>
 #include "PubSubClient.h"
 
+/********************** ESP CRAFT SETUP **************************/
+#define MODULE_NUMBER "4"
+#define MQTT_PREFIX "nvias/MC"
+/********************* END ESP CRAFT SETUP **********************/
+
+#define SUB_TOPIC MQTT_PREFIX "/M" MODULE_NUMBER "/#"
+#define PUB_TOPIC MQTT_PREFIX "/M" MODULE_NUMBER
 #define BTN 14
 
 const char* ssid = "JMENO_WIFI";
@@ -9,8 +16,9 @@ const char* password = "HELSO_WIFI";
 
 const char* mqtt_server = "52.59.197.227";
 const uint16_t mqtt_port = 1884;
-char* subTopic = "nvias/MC/M7/#";
-char* bcTopic = "nvias/MC/M7";
+
+char* subTopic = SUB_TOPIC;
+char* pubTopic = PUB_TOPIC;
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -72,7 +80,7 @@ void reconnect() {
     clientId += String(random(0xffff), HEX);
     if (client.connect(clientId.c_str())) {
       Serial.println("connected");
-      client.publish(bcTopic, "hello world");
+      client.publish(pubTopic, "hello world");
       
       Serial.print("Subscribing to ");
       Serial.println(subTopic);
@@ -80,8 +88,8 @@ void reconnect() {
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
+      Serial.println(" try again in 2 seconds");
+      delay(2000);
     }
   }
 }
@@ -110,19 +118,27 @@ void setup_wifi() {
 void setup() {
   pinMode(BUILTIN_LED, OUTPUT);
   pinMode(BTN, INPUT_PULLUP);
-  
+
+  delay(50);
+  digitalWrite(BUILTIN_LED, 1);
+
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);  
 
   pixels.begin();
+
+  pixels.setPixelColor(0, pixels.Color(0,0,0));
+  pixels.show();
 }
 
 bool state = false;
 void loop() {
   if (!client.connected()) {
     reconnect();
+
+    digitalWrite(BUILTIN_LED, 0);
   }
   
   client.loop();
@@ -130,7 +146,7 @@ void loop() {
   if(!digitalRead(BTN)){
     delay(20);
     if(!digitalRead(BTN)){
-      client.publish("nvias/MC/M7/D5", state ? "1" : "0");
+      client.publish("nvias/MC/M4/D5", state ? "1" : "0");
       state = !state;
       digitalWrite(BUILTIN_LED, 1);
       delay(100);
