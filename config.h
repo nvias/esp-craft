@@ -1,8 +1,8 @@
 #ifndef config_h
 #define config_h
 
-#define WIFI_SSID "WIFI_NAME"
-#define WIFI_PASSWORD "WIFI_PASSWORD"
+#define WIFI_SSID "%WIFI_NAME%"
+#define WIFI_PASSWORD "%WIFI_PASSWORD%"
 
 #define MODULE_NUMBER "4"
 
