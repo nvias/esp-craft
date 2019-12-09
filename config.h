@@ -1,10 +1,11 @@
 #ifndef config_h
 #define config_h
 
-#define WIFI_SSID "%WIFI_NAME%"
-#define WIFI_PASSWORD "%WIFI_PASSWORD%"
 
-#define MODULE_NUMBER "4"
+#define WIFI_SSID ""
+#define WIFI_PASSWORD ""
+#define MODULE_NUMBER ""
+
 
 #define MQTT_SERVER "52.59.197.227"
 #define MQTT_PORT 1884
