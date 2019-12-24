@@ -1,4 +1,3 @@
 .idea
 *.bin
 *.elf
-config.h
