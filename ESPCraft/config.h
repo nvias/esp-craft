@@ -7,8 +7,8 @@
 #define MODULE_NUMBER "MODULE_ID"
 
 
-#define MQTT_SERVER "52.59.197.227"
-#define MQTT_PORT 1884
+#define MQTT_SERVER "34.245.186.165"
+#define MQTT_PORT 1883
 
 #define MQTT_PREFIX "nvias/MC"
 
